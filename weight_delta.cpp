@@ -76,7 +76,15 @@ bool model_arch_matches(const llama_model & model, const std::string & wd_arch) 
     return false;
 }
 
-struct weight_delta_handler : public llama_sidecar_handler {
+// Multiply-inherits from llama_sidecar_handler (base ABI) and
+// llama_sidecar_handler_weights (the optional weight-modification interface
+// added 2026-05-09). The engine probes for the weights interface via
+// dynamic_cast at sidecar attach; plugins that don't implement it (including
+// old binaries built against pre-2026-05-09 headers) are transparently
+// skipped for the apply_to_weights dispatch.
+struct weight_delta_handler
+    : public llama_sidecar_handler
+    , public llama_sidecar_handler_weights {
     std::string type() const override { return "weight_delta"; }
 
     bool load(
