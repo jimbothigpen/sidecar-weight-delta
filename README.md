@@ -1,6 +1,6 @@
 # sidecar-weight-delta
 
-Out-of-tree [frankenturbo2](https://github.com/jimbothigpen/frankenturbo2) sidecar
+Out-of-tree hub [`llama.cpp` fork](https://github.com/jimbothigpen/llama.cpp) (`jimbothigpen/llama.cpp`, 'llama-yggdrasil') sidecar
 handler plugin that registers `weight_delta` as a sidecar type. Applies
 rank-r per-tensor weight perturbations (Heretic-style rank-1 surgery,
 Abliterix, generic LoRA-shaped weight deltas) to a loaded base model at
@@ -37,16 +37,16 @@ tensors:                       <base_name>.lora_a [d_in, r]
 ## Build
 
 ```bash
-cmake -S . -B build -DLLAMA_INSTALL_PREFIX=/opt/llama-frankenturbo2-vulkan
+cmake -S . -B build -DLLAMA_INSTALL_PREFIX=/opt/llama-yggdrasil-vulkan
 cmake --build build -j12
-sudo cmake --install build --prefix /opt/llama-frankenturbo2-vulkan
-sudo cmake --install build --prefix /opt/llama-frankenturbo2-rocm
+sudo cmake --install build --prefix /opt/llama-yggdrasil-vulkan
+sudo cmake --install build --prefix /opt/llama-yggdrasil-rocm
 ```
 
 ## Use
 
 ```bash
-llama-cli --sidecar-load-plugin /opt/llama-frankenturbo2-vulkan/lib/sidecars/libsidecar_weight_delta.so \
+llama-cli --sidecar-load-plugin /opt/llama-yggdrasil-vulkan/lib/sidecars/libsidecar_weight_delta.so \
           --sidecar-vectors /path/to/your.wd.gguf \
           -m base_model.gguf -p "..."
 ```
