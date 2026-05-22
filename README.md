@@ -37,14 +37,10 @@ tensors:                       <base_name>.lora_a [d_in, r]
 ## Build
 
 ```bash
-cmake -S /usr/src/llama-forks/sidecar-weight-delta \
-      -B /home/builduser/sidecar-builds/sidecar-weight-delta \
-      -DLLAMA_INSTALL_PREFIX=/opt/llama-frankenturbo2-vulkan
-cmake --build /home/builduser/sidecar-builds/sidecar-weight-delta -j12
-sudo cmake --install /home/builduser/sidecar-builds/sidecar-weight-delta \
-            --prefix /opt/llama-frankenturbo2-vulkan
-sudo cmake --install /home/builduser/sidecar-builds/sidecar-weight-delta \
-            --prefix /opt/llama-frankenturbo2-rocm
+cmake -S . -B build -DLLAMA_INSTALL_PREFIX=/opt/llama-frankenturbo2-vulkan
+cmake --build build -j12
+sudo cmake --install build --prefix /opt/llama-frankenturbo2-vulkan
+sudo cmake --install build --prefix /opt/llama-frankenturbo2-rocm
 ```
 
 ## Use
